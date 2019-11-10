@@ -55,6 +55,14 @@ def build_model():
     ("tfidf", TfidfTransformer()),
     ("clf", MultiOutputClassifier(RandomForestClassifier()))
     ])
+    
+    parameters = {
+        "clf__estimator__n_estimators": [15, 20, 35, 50, 100],
+        "clf__estimator__max_depth": [None, 50, 100],
+        "clf__estimator__max_features": ["sqrt", "auto"]
+    }
+
+    cv = GridSearchCV(pipeline, parameters)
     return pipeline
 
 
